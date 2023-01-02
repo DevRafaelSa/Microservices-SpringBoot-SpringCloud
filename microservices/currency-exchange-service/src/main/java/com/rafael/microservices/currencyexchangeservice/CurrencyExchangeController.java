@@ -11,15 +11,23 @@ import java.math.BigDecimal;
 @RestController
 public class CurrencyExchangeController {
 
+    @Autowired
+    private CurrencyExchangeRepository repository;
+
     //classe Environment ajuda a pegar o valor da porta
     @Autowired
     private Environment environment;
 
     @GetMapping("/currency-exchange/from/{from}/to/{to}")
     public CurrencyExchange retrieveExchangevalue(@PathVariable String from, @PathVariable String to) {
-        CurrencyExchange currencyExchange = new CurrencyExchange(1000L, from, to, BigDecimal.valueOf(50));
         //passo o "endereco" de onde a classe Environment vai pegar a porta correta e depois passo como
         //parametro no metodo setEnvironment da classe CurrencyExchange
+        CurrencyExchange currencyExchange = repository.findByFromAndTo(from, to);
+
+        if(currencyExchange == null) {
+            throw new  RuntimeException("Unable data from " + from + " to " + to);
+        }
+
         String port = environment.getProperty("local.server.port");
         currencyExchange.setEnvironment(port);
 
