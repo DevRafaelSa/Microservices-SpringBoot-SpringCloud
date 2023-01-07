@@ -106,7 +106,7 @@
                 <version>${project.parent.version}</version>
                 <configuration>
                     <image>
-                        <name>rafaelsadev/msbsc-${project.artifactId}:${project.version}</name>
+                        <name>rafaelsadev/msbsc-${project.parent.artifactId}:${project.parent.version}</name>
                     </image>
                     <pullPolicy>IF_NOT_PRESENT</pullPolicy>
                 </configuration>
@@ -114,7 +114,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>${project.parent.version}</version>
             </plugin>
         </plugins>
     </build>
